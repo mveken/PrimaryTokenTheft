@@ -68,6 +68,14 @@ int main(int argc, char** argv) {
 	
 	// Grab PID from command line argument
 	char *pid_c = argv[1];
+	const char* applicationName = argv[2];
+
+	size_t size = strlen(applicationName) + 1;
+	wchar_t* applicationName_w = new wchar_t[size];
+
+	size_t outSize;
+	mbstowcs_s(&outSize, applicationName_w, size, applicationName, size - 1);
+
 	DWORD PID_TO_IMPERSONATE = atoi(pid_c);
 
 	// Initialize variables and structures
@@ -133,9 +141,9 @@ int main(int argc, char** argv) {
 	}
 
 	// Call CreateProcessWithTokenW(), print return code and error code
-	BOOL createProcess = CreateProcessWithTokenW(duplicateTokenHandle, LOGON_WITH_PROFILE, L"C:\\Windows\\System32\\cmd.exe", NULL, 0, NULL, NULL, &startupInfo, &processInformation);
+	BOOL createProcess = CreateProcessWithTokenW(duplicateTokenHandle, LOGON_WITH_PROFILE, applicationName_w, NULL, 0, NULL, NULL, &startupInfo, &processInformation);
 	if (GetLastError() == NULL)
-		printf("[+] Process spawned!\n");
+		printf("[+] Process '%s' spawned!\n", applicationName);
 	else
 	{
 		printf("[-] CreateProcessWithTokenW Return Code: %i\n", createProcess);
