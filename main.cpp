@@ -121,8 +121,8 @@ int main(int argc, char** argv) {
 	{
 		printf("[+] ImpersonatedLoggedOnUser() success!\n");
 		printf("[+] Current user is: %s\n", (get_username()).c_str());
-		//printf("[+] Reverting thread to original user context\n");
-		//RevertToSelf();
+		printf("[+] Reverting thread to original user context\n");
+		RevertToSelf();
 	}
 	else
 	{
