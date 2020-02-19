@@ -143,7 +143,7 @@ int main(int argc, char** argv) {
 	// Call CreateProcessWithTokenW(), print return code and error code
 	BOOL createProcess = CreateProcessWithTokenW(duplicateTokenHandle, LOGON_WITH_PROFILE, applicationName_w, NULL, 0, NULL, NULL, &startupInfo, &processInformation);
 	if (GetLastError() == NULL)
-		printf("[+] Process '%s' spawned with token!\n", applicationName);
+		printf("[+] Process '%s' spawned WithToken!\n", applicationName);
 	else
 	{
 		printf("[-] CreateProcessWithTokenW Return Code: %i\n", createProcess);
@@ -153,7 +153,7 @@ int main(int argc, char** argv) {
 	// Call CreateProcessAsUserW(), print return code and error code
 	BOOL createProcessAsUser = CreateProcessAsUserW(duplicateTokenHandle, applicationName_w, NULL, NULL, NULL, false, 0, NULL, NULL, &startupInfo, &processInformation);
 	if (GetLastError() == NULL)
-		printf("[+] Process '%s' spawned as user!\n", applicationName);
+		printf("[+] Process '%s' spawned AsUser!\n", applicationName);
 	else
 	{
 		printf("[-] CreateProcessAsUserW Return Code: %i\n", createProcessAsUser);
